@@ -3,6 +3,9 @@
 $fa5pro = file_exists(__DIR__ . '/fontawesome5-solid-duotone.min.css');
 
 $rel_dir = explode('?', $_SERVER['REQUEST_URI'])[0];
+$slash_pos = strrpos($rel_dir, '/');
+if ($slash_pos !== false) $rel_dir = substr($rel_dir, 0, $slash_pos + 1);
+
 $dir = $_SERVER['DOCUMENT_ROOT'] . $rel_dir;
 $dirname = basename($dir);
 $files = scandir($dir);
@@ -141,7 +144,7 @@ foreach ($files as $file) {
 	}
 
 	$next = [
-		'name' => htmlentities($file),
+		'name' => $file,
 		'mtime' => date('Y-m-d H:i:s', filemtime($path)),
 		'icon' => $icon,
 		'size' => $size,
